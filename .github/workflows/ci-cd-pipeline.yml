@@ -1,0 +1,18 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use the appropriate environment
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Checkout the code from the repository
+
+      - name: Trigger Jenkins Build
+        run: |
+          curl -X POST http://localhost:8080/job/CI-CD%20Pipelines/build --user Laiba:11375192cc41bc14176bda907331b32184
