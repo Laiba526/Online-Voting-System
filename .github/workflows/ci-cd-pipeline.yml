@@ -15,4 +15,4 @@ jobs:
 
       - name: Trigger Jenkins Build
         run: |
-          curl -X POST http://localhost:8080/job/CI-CD%20Pipelines/build --user Laiba:11375192cc41bc14176bda907331b32184
+          curl -X POST http://localhost:8080/job/CI-CD%20Pipelines/build --user ${{ secrets.JENKINS_USERNAME }}:${{ secrets.JENKINS_API_TOKEN }}
