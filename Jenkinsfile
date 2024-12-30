@@ -13,10 +13,17 @@ pipeline {
             }
         }
 
+        stage('Verify PHP Installation') {
+            steps {
+                // Verify if PHP is installed and accessible
+                bat 'php -v'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 // Ensure Composer is accessible by adding it to the PATH
-                withEnv(["PATH+COMPOSER=D:/composer"]) {
+                withEnv(["PATH+COMPOSER=D:/composer", "PATH+PHP=C:/php"]) {
                     // Install PHP dependencies using the build.bat file
                     bat 'build.bat'
                 }
