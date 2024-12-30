@@ -16,7 +16,7 @@ pipeline {
         stage('Verify PHP Installation') {
             steps {
                 // Verify if PHP is installed and accessible
-                bat 'D:\\Program Files\\php\\php-8.4.2-Win32-vs17-x64\\php.exe -v'
+                bat '"D:\\Program Files\\php\\php-8.4.2-Win32-vs17-x64\\php.exe" -v'
             }
         }
 
