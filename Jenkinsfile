@@ -15,8 +15,11 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                // Install PHP dependencies using the build.bat file
-                bat 'build.bat'
+                // Ensure Composer is accessible by adding it to the PATH
+                withEnv(["PATH+COMPOSER=D:/composer"]) {
+                    // Install PHP dependencies using the build.bat file
+                    bat 'build.bat'
+                }
             }
         }
 
