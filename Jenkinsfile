@@ -1,44 +1,44 @@
 pipeline {
-    agent any  // This tells Jenkins to run the pipeline on any available agent
+    agent any  // Run on any available agent
 
     environment {
-        // Define any environment variables, if needed
         DEPLOY_ENV = 'production'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the latest code from the Git repository
+                // Clone the Git repository
                 git branch: 'main', url: 'https://github.com/Laiba526/Online-Voting-System.git'
             }
         }
 
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                // Run your build commands here (e.g., for a Maven or Node.js project)
-                sh 'mvn clean install'  // Example for Java-based Maven project
+                // Install PHP dependencies using the build.bat file
+                bat 'build.bat'
             }
         }
 
         stage('Test') {
             steps {
-                // Run your test commands (e.g., unit tests, integration tests)
-                sh 'mvn test'  // Example for Maven project
+                // Run PHP unit tests
+                bat 'vendor\\bin\\phpunit --configuration phpunit.xml'
             }
         }
 
         stage('Deploy') {
             steps {
-                // Deploy the built application
-                sh './deploy.sh'  // Replace with your deployment script/commands
+                // Deploy the application (replace with your deployment commands)
+                echo 'Deploying application...'
+                // Example: FTP or SCP commands to move files to a server
             }
         }
 
         stage('Notify') {
             steps {
-                // Send notifications (e.g., Slack or email) about build status
-                slackSend(channel: '#builds', message: 'Build and deployment completed successfully!')
+                // Send notifications
+                echo 'Build and deployment completed successfully!'
             }
         }
     }
@@ -46,17 +46,15 @@ pipeline {
     post {
         always {
             // Clean up resources if needed
-            echo 'Cleaning up...'
+            echo 'Cleaning up workspace...'
         }
 
         success {
-            // Actions on success, such as sending notifications
-            echo 'Build succeeded!'
+            echo 'Pipeline succeeded!'
         }
 
         failure {
-            // Actions on failure (e.g., notify team about failure)
-            echo 'Build failed!'
+            echo 'Pipeline failed!'
         }
     }
 }
