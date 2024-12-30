@@ -16,14 +16,17 @@ pipeline {
         stage('Verify PHP Installation') {
             steps {
                 // Verify if PHP is installed and accessible
-                bat 'php -v'
+                bat 'D:\\Program Files\\php\\php-8.4.2-Win32-vs17-x64\\php.exe -v'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                // Ensure Composer is accessible by adding it to the PATH
-                withEnv(["PATH+COMPOSER=D:/composer", "PATH+PHP=C:/php"]) {
+                // Ensure Composer and PHP are accessible by adding them to the PATH
+                withEnv([
+                    "PATH+COMPOSER=D:/composer", 
+                    "PATH+PHP=D:/Program Files/php/php-8.4.2-Win32-vs17-x64"
+                ]) {
                     // Install PHP dependencies using the build.bat file
                     bat 'build.bat'
                 }
