@@ -64,10 +64,7 @@ stage('Verify PHPUnit Installation') {
     }
 
     post {
-        always {
-            // Clean up resources if needed
-            echo 'Cleaning up workspace...'
-        }
+       
 
         success {
             echo 'Pipeline succeeded!'
