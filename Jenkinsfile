@@ -32,7 +32,14 @@ pipeline {
                 }
             }
         }
-
+stage('Verify PHPUnit Installation') {
+    steps {
+        script {
+            // Check if PHPUnit is installed in vendor/bin
+            bat 'dir vendor\\bin\\phpunit'
+        }
+    }
+}
         stage('Test') {
             steps {
                 // Run PHP unit tests
