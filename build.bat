@@ -15,9 +15,9 @@ IF %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-:: Step 3: Ensure PHPUnit is installed
-echo Ensuring PHPUnit is installed...
-composer require --dev phpunit/phpunit
+:: Step 3: Install PHPUnit explicitly (if it's not installed)
+echo Installing PHPUnit...
+composer require --dev phpunit/phpunit:^9.5
 IF %ERRORLEVEL% NEQ 0 (
     echo ERROR: PHPUnit installation failed!
     exit /b 1
@@ -26,7 +26,7 @@ IF %ERRORLEVEL% NEQ 0 (
 :: Step 4: Verify PHPUnit installation
 echo Verifying PHPUnit installation...
 IF NOT EXIST vendor\bin\phpunit (
-    echo ERROR: PHPUnit was not installed correctly!
+    echo ERROR: PHPUnit not found!
     exit /b 1
 )
 
