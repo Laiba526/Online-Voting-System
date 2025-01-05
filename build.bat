@@ -15,7 +15,15 @@ IF %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-:: Step 3: Run Unit Tests
+:: Step 3: Ensure PHPUnit is installed (if not already)
+echo Ensuring PHPUnit is installed...
+composer require --dev phpunit/phpunit
+IF %ERRORLEVEL% NEQ 0 (
+    echo ERROR: PHPUnit installation failed!
+    exit /b 1
+)
+
+:: Step 4: Run Unit Tests
 echo Running PHP Unit Tests...
 vendor\bin\phpunit --configuration phpunit.xml
 IF %ERRORLEVEL% NEQ 0 (
@@ -23,7 +31,7 @@ IF %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-:: Step 4: Run Migrations (if applicable)
+:: Step 5: Run Migrations (if applicable)
 echo Running database migrations...
 php artisan migrate --force
 IF %ERRORLEVEL% NEQ 0 (
@@ -31,13 +39,13 @@ IF %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-:: Step 5: Optimize Application (optional)
+:: Step 6: Optimize Application (optional)
 echo Optimizing application...
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-:: Step 6: Build completed successfully
+:: Step 7: Build completed successfully
 echo ================================
 echo Jenkins PHP Build Completed Successfully!
 echo ================================
